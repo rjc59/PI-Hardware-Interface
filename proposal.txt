@@ -6,26 +6,42 @@ Read wikipedia on the following for next week:
 
 The paper must be 4 pages or more in length, using a relatively standard font and point size (e.g., 12-point Times New Roman or Computer Modern). Judicious use of charts, graphs, and/or illustrations is encouraged, especially if it helps me to udnerstand the . Margins should be of standard size (1" or less).
 
-Please ensure that your name as well as the name of the project you worked on is listed, along with the name of the customer.
-
-This is a group project - only one proposal paper is expected from each group.
-
 In general, what I would like to see is a good understanding of what you are planning to do, why, and how. This may also include division of labor (for example, if one student is going to focus on quality assurance and two others on development, or one student is going to focus on documentation, etc.) All of this is subject to change as the semester goes on!
 
-Here are some example questions I would like to see answered. This does not mean that you need answer all of them, but I would recommend that you think about all of them now so you are not blindsided later.
+
+Project: 
+    Hardware/Software Interface
+
+Team:
+    Eric Hochendoner
+    Andrew Panzl
+    Rob Colleran
+
+Customer:
+    Don Bullock
 
 
-suggested proposal questions
-1 slack/email/google hangout/in person
-2 python
-3 whatever we need
-4 unit tests + manual
-5 client/server
-6 Hardware drivers / web interface / stuff in the middle
-7 pi, motors, 
-8 this class is in development, so there may be some issues
-9 probs Raspbian because its easiest
-10 once weekly in person, much more frequently digitally
+What we are planning to do:
+    Develop a platform which can be used to control a motorized mirror.
+
+Why are we planning to do it:
+    To develop a better understanding of how software interfaces with hardware devices.
+
+How are we planning to do it:
+    By designing a web interface for user input which will connect to motor drivers.
+
+suggested questions:
+    1 slack/email/google hangout/in person
+    2 python
+    3 whatever we need
+    4 unit tests + manual integration tests
+    5 client/server
+    6 Hardware drivers / web interface / stuff in the middle
+    7 pi, motors, 
+    8 this class is in development, so there may be some issues
+        Don will also intentionally withhold supplies and information to simulate a real world project
+    9 probably Raspbian because its easiest
+    10 once weekly in person, much more frequently digitally
 
 User Stories:
     As a hardware developer
@@ -40,20 +56,26 @@ User Stories:
     I want the logic engine to log all operations
     So that I can review performance and isolate errors
     
-    As a $FOO
-    I want $BAR
-    So that $BAZ
+    As a user of the web interface
+    I want to be able to download all log files
+    So that I can remotely debug the logic engine
     
-    As a $FOO
-    I want $BAR
-    So that $BAZ
+    As a software developer
+    I want API endpoints for all functions
+    So that I can stream instructions to the driver
     
-    As a $FOO
-    I want $BAR
-    So that $BAZ
+    As a hardware developer
+    I want all net motions to be limited to 90 degrees
+    So that the hardware stays within safe limits
     
     As a $FOO
     I want $BAR
     So that $BAZ
 
+    As a $FOO
+    I want $BAR
+    So that $BAZ
 
+    As a $FOO
+    I want $BAR
+    So that $BAZ
