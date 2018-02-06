@@ -14,3 +14,4 @@ Sprint 2: (Feb 2 - Feb 16)
 
     Tasks:
         Fill out templates for 3 documents
+	Read slides
