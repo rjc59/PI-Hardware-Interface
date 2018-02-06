@@ -1,0 +1,43 @@
+Requirements Specification
+
+Table of Contents
+-to be updated
+
+1. Executive Summary
+1.1 Project Overview
+1.2 Purpose and Scope of this Specification
+
+2. Product Description
+2.1 Product Context
+2.2 User Characteristics
+2.3 Assumptions
+2.4 Constraints
+2.5 Dependencies
+
+3. Requirements
+3.1 Functional Requirements
+3.2 User Interface Requirements
+3.3 Usability
+3.4 Performance
+3.4.1 Capacity
+3.4.2 Availability
+3.4.3 Latency
+3.5 Maintainability
+3.5.1 Monitoring
+3.5.2 Maintenance
+3.5.3 Operations
+3.6 System Interface/Integration
+3.6.1 Network and Hardware Interfaces
+3.6.2 System Interfaces
+3.7 Security
+3.7.1 Protection
+3.7.2 Authorization and Authentication
+3.8 Data Management
+3.9 Standards Compliance
+3.10 Portability
+
+4. User Scenarios
+
+5. Deleted or Deferred Requirements
+
+6. Requirements Confirmation/Stakeholder sign-off

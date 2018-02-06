@@ -1,0 +1,37 @@
+Software Design Document
+
+Members
+Rob Colleran      -  	rjc59@pitt.edu
+Eric Hochendoner  - 	edh42@pitt.edu
+Andrew Panzl      - 	app19@pitt.edu
+
+Table of Contents
+-essentially done last
+Figures
+-as add used, keep sequential order by page referenced
+
+1. Introduction
+1.1 Purpose
+1.2 Scope
+1.3 References
+1.4 Overview
+
+2. Design considerations
+2.1 Assumptions
+2.2 Constraints
+2.3 System environment
+2.4 Design Methodology
+
+3. Architecture
+3.1 System Design
+<figure from proposal, 'Generalized Layout of the Software Components'
+3.2 System decomposition
+
+4. Data design
+4.1 Data description
+4.2 Data dictionary
+
+5. Component Design
+5.1
+.. Feature descriptions
+5.n
