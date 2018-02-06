@@ -9,7 +9,7 @@ The paper must be 4 pages or more in length, using a relatively standard font an
 In general, what I would like to see is a good understanding of what you are planning to do, why, and how. This may also include division of labor (for example, if one student is going to focus on quality assurance and two others on development, or one student is going to focus on documentation, etc.) All of this is subject to change as the semester goes on!
 
 
-Project: 
+Project:
     Hardware/Software Interface
 
 Team:
@@ -37,7 +37,7 @@ suggested questions:
     4 unit tests + manual integration tests
     5 client/server
     6 Hardware drivers / web interface / stuff in the middle
-    7 pi, motors, 
+    7 pi, motors,
     8 this class is in development, so there may be some issues
         Don will also intentionally withhold supplies and information to simulate a real world project
     9 probably Raspbian because its easiest
@@ -47,27 +47,27 @@ User Stories:
     As a hardware developer
     I want an up-to-date working emulator
     So that I can continue developing my hardware while the software is being developed
-    
+
     As a gyroscope
     I want to be 'balanced' after accelerometer inputs from the logical engine
     So that I can function properly as a gyroscope upon updates
-    
+
     As a debugger
     I want the logic engine to log all operations
     So that I can review performance and isolate errors
-    
+
     As a user of the web interface
     I want to be able to download all log files
     So that I can remotely debug the logic engine
-    
+
     As a software developer
     I want API endpoints for all functions
     So that I can stream instructions to the driver
-    
+
     As a hardware developer
     I want all net motions to be limited to 90 degrees
     So that the hardware stays within safe limits
-    
+
     As a $FOO
     I want $BAR
     So that $BAZ
