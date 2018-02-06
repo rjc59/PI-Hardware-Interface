@@ -1,0 +1,16 @@
+Sprints!
+
+
+Sprint 1: ( - Feb 2)
+    Scrum Master: N/A
+    Tasks:
+        Learn about SRS, SDD, SoW
+        Everyone meet
+    Retrospective:
+        We met with PoC
+
+Sprint 2: (Feb 2 - Feb 16)
+    Scrum Master: 
+
+    Tasks:
+        Fill out templates for 3 documents
