@@ -1,0 +1,63 @@
+Intro:
+  Project information:
+  - The task for this project is to develop software that can interface with a hardware device consisting of a raspberry pi
+  that controls various components. These components could include a gyroscope, temperature sensor, motors, or other peripherals.
+  - This hardware will not always be available for testing and its exact specifications may be changed by the POC over time,
+  therefore hardware will need to be simulated during development.
+  - The software to be developed should include a web server/client interface to communicate with the software controlling
+  the hardware, lower level software for the pi that controls the hardware, and a driver to simulate the hardware.
+  - As part of the server/client interface, networking code will be needed to handle
+  communication over the bus between the server and client and handle problems such as communication errors and race conditions.
+  - In addition to the software, documentation will need to be done. This will include a system design document, system requirement specification, a working agreement, etc.
+  - It will also be necessary to do quality assurance (QA) work
+  Document scope:
+  - The scope for this project includes all development, testing, and documentation for:
+  The web server/client interface to communicate with the software controlling the hardware
+  the lower level software for the pi that controls the hardware
+  the driver to simulate the hardware
+  the networking code to handle communication between the server and client
+  - It does not include:
+  Any development or work on the hardware itself
+
+Deliverables:
+  Kickoff -
+    Dev team will work with POC to understand requirements of the project and develop documentation
+  Design Phase -
+    Dev team will make detailed design decisions, make a working agreement, research the required hardware/libraries, and write skeleton code
+  Build Phase -
+    Dev team will complete all coding of hardware drivers, and enough coding of an interface and communication software that testing on hardware is possible
+    Hardware simulator will also be developed during this period to prepare for hardware testing
+    All code will be thoroughly tested and a working beta will be available in the master branch of the repository
+    A testing report will be compiled
+    Team will meet weekly to give status updates to each other and to the POC
+  Implementation Phase -
+    Software will be implemented on the pi and hardware-specific details will be worked out, including inverting of the wifi adapter etc
+    The interface will be updated to handle hardware-specific details that the simulator couldn't provide, such as certain alerts etc
+    Testing will be done in conjunction with the hardware
+  Finalization Phase -
+    A user manual will be created
+    Requirements checklist will be completed
+    All previous documents will be updated to reflect the final status of the project
+    Final report detailing development will be written
+
+Working period:
+  Work will take place from Jan 19th to April 20th 2018
+  Meetings every week, sprints every 2 weeks
+Milestones:
+  First meeting and requirements discussion with POC - Jan 25th
+  SRS, SDD, SOW drafts complete - Feb 8th
+  Working agreement and project design done - Feb 15th
+  Working driver code developed and working version in master branch of repo - March 1st
+  Midterm update written - March 2nd
+  Working interface and communication code developed and working version in master branch of repo - March 15th
+  Implementation and testing on hardware done - March 29th
+  Completely functional version of software and user manual completed - April 12th
+  Final project report and presentation completed - April 20th
+Communications:
+  - Slack will be used to communicate about development and with POC
+  - Weekly in-person meetings with POC
+  Client feedback:
+  - TODO
+Acceptance Criteria:
+  - The POC will be in charge of declaring if work is acceptable or not
+  - At each meeting, documentation and software in master branch will be reviewed and he will declare if scheduled requirements and scope of work have been met
