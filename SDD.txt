@@ -45,9 +45,20 @@ Figures
   <tabular data description>
 
 5. Component Design
-5.1
-.. Feature descriptions
-5.n
+  Each component should use at least one separate thread, maybe separate processes for stability?
+5.1 Hardware driver
+  Responsible for communicating with product hardware
+  Submitting commands
+  Receiving alerts
+5.2 Web Interface
+  Responsible for communications with external points
+  Users via webUI
+  API for receiving automated commands
+5.3 Logic Engine
+  Responsible for calculating product motion
+  Calculating angles / segments
+  Handling input streams
+
 
 6 Software Interface Design
 6.1 User Interface design

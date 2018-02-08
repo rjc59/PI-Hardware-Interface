@@ -23,8 +23,8 @@ Table of Contents
 (I'm assuming this is in regards to whoever is writing code for the software, not for the user)
   Assume up-to-date knowledge of the hardware component, how to interface a web server/client using sockets, working knowledge of python, and functional understanding of a raspberry pi to simulate the hardware.
 2.4 Constraints
-  Managing communication over a web client
-  Handling race conditions with respect to ____
+  Managing communication over a network interface
+  Handling race conditions
   Shared security credentials to maintain a private web client
   Resource testing, limited access to the physical hardware being developed
 2.5 Dependencies
@@ -51,12 +51,12 @@ Req#  Requirement                               Priority    Date Reviewed   Appr
 3.2 User Interface Requirements
   Interface will be managed using a web server, intended to communicate between user and software<->hardware
 3.3 Usability
-  System usability is interfaced entirely amidst the webserver in order to abstract processes and restrict user parameters
+  System control is available both through a GUI provided by a web server, and through a ReST API
 3.4 Performance
 3.4.1 Capacity
   Single user with strict hardware limitations: <hardware restrictions here>
 3.4.2 Availability
-  ???
+  The system should be available anytime the raspberry pi is online
 3.4.3 Latency
   Message passing between hardware positional updates and web server display should be between 50Hz and 100Hz
 3.5 Maintainability
@@ -66,6 +66,11 @@ Req#  Requirement                               Priority    Date Reviewed   Appr
 3.5.3 Operations
 3.6 System Interface/Integration
 3.6.1 Network and Hardware Interfaces
+    Unix sockets to communicate between different software components
+        Each channel will use a different port
+        Web server <-> Logic Engine will use a ReST API
+    HTTP to communicate between client browser and web server
+    I2C to communicate with hardware components
 3.6.2 System Interfaces
 3.7 Security
 3.7.1 Protection
