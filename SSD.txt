@@ -1,5 +1,7 @@
 Software Design Document
 
+-Follows the IEEE recommended practice for Software Design Documentation
+
 Members
 Rob Colleran      -  	rjc59@pitt.edu
 Eric Hochendoner  - 	edh42@pitt.edu
@@ -8,30 +10,85 @@ Andrew Panzl      - 	app19@pitt.edu
 Table of Contents
 -essentially done last
 Figures
--as add used, keep sequential order by page referenced
+-add as used, keep sequential order by page referenced
 
 1. Introduction
 1.1 Purpose
+  The purpose of this document is to provide a detailed description of the API designed to support the <Name> hardware component being used in avionic controls. In addition the document should provide reference to the hardware developer in order to track development and proper feature usability.
 1.2 Scope
+  Details discussed in the document encompass how the software will interface with the hardware, message passing interface methods, user access, and feature abstraction. Perspective will generally be geared towards the API but will also consider user perspective when discussing feature usability and security implementations
 1.3 References
+  -
 1.4 Overview
 
 2. Design considerations
 2.1 Assumptions
+  User has knowledge of the hardware component.
+
 2.2 Constraints
+  The API is constructed for limited access. The intention is to isolate the login user to someone who is familiar with the intended use and knowledge of the hardware component being manipulated.
 2.3 System environment
+  System should be functional only in response to the complimentary hardware.
 2.4 Design Methodology
+  Using an Agile approach, a working code base is maintained in the master branch of a bit-bucket repository and functional features are added using branch merges.
 
 3. Architecture
 3.1 System Design
-<figure from proposal, 'Generalized Layout of the Software Components'
+  <figures>
 3.2 System decomposition
+3.2.1 Functional decomposition tree
 
 4. Data design
 4.1 Data description
+  <How data is being stored and where>
 4.2 Data dictionary
+  <tabular data description>
 
 5. Component Design
 5.1
 .. Feature descriptions
 5.n
+
+6 Software Interface Design
+6.1 User Interface design
+  <web client designer should discuss this>
+6.1.1 Web Pages in a tree
+  <hierarchical view of web page layout>
+6.1.1.1 Description
+  <description of each node>
+6.1.1.2 Objects and Actions
+  <description of the actions needed to get from a parent node to any of it's child nodes>
+6.1.2 User Interface
+  <General 'flavor' of GUI and actions accessible to the user>
+6.1.2.1 Screen Images
+  <screen shot of each node, web page>
+6.2 Module Interface Design
+  <how has the design maintained MVC standards>
+
+7 Class Diagrams
+7.1 Basic folders for class diagrams
+
+7.2 Basic class diagram
+
+7.3 Full class diagram
+
+--these will differ vastly from the sample. Sample implements a login system--
+7.4
+...
+7.7
+
+8 Appendices
+A. Setup and Configuration
+B. Tool set and environment
+C. Implementation list
+  <should correlate with subsections 7.4->7.7>
+D. Log sheet
+  <timesheet of hours contributed by each team member>
+E. Test Report
+  -Subsections should focus on specific elements such as secure logon, feature error checks (inputting invalid parameters and not breaking the system)
+F. Test Cases
+
+Glossary
+<tabular structure of acronyms used and their descriptions>
+
+Bibliography

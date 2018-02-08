@@ -5,25 +5,63 @@ Table of Contents
 
 1. Executive Summary
 1.1 Project Overview
+  The intended purpose is to integrate a software API with modern hardware. The hardware, in development by the client, Don Bullock, is intended to communicate with the application via a web server/client interface in order to interpret data, assert control factors and manage a backlog.
 1.2 Purpose and Scope of this Specification
+  In Scope:
+  model up-to-date hardware using a raspberry pi
+  maintain a working application
+
+  Out of Scope:
+  Access and testing on the developing hardware
 
 2. Product Description
 2.1 Product Context
+  This API is strictly set to interface with the designed hardware component. The application is intended to model aspects of a controller and inter-process communicator to store receive and send data for remote storage.
 2.2 User Characteristics
+  The intended user will be an employee working in avionics. General knowledge should consist of flight components with respect to the coordinating hardware and interpretive knowledge of data output
 2.3 Assumptions
+(I'm assuming this is in regards to whoever is writing code for the software, not for the user)
+  Assume up-to-date knowledge of the hardware component, how to interface a web server/client using sockets, working knowledge of python, and functional understanding of a raspberry pi to simulate the hardware.
 2.4 Constraints
+  Managing communication over a web client
+  Handling race conditions with respect to ____
+  Shared security credentials to maintain a private web client
+  Resource testing, limited access to the physical hardware being developed
 2.5 Dependencies
+  The physical hardware component being developed
 
 3. Requirements
-3.1 Functional Requirements
+3.1 Functional Requirements (user stories at the moment)
+Req#  Requirement                               Priority    Date Reviewed   Approver
+1     Send alert if a motor rotates beyond 90Deg  1
+2     Allow 3D angle changes to gyroscope         1
+3     Error Check parameters sent to hardware     1
+4     Set rotational speed without breaking hardware  1
+5     Maintain a hardware emulator for testing    1
+6     Maintain 50Hz-100Hz rate of communication   1
+7     Web server display current gyroscope param  1
+8     Maintain a backlog for the code             2
+9     User manual                                 2
+10    Gyroscope self adjusting to be leveled      2
+11    Maintain a backlog for the server/client    2
+12    API endpoints established                   2
+13    Accept batch scripts                        3
+14    Admin panel for the web client              3
+15    Downloadable backlogs                       3
 3.2 User Interface Requirements
+  Interface will be managed using a web server, intended to communicate between user and software<->hardware
 3.3 Usability
+  System usability is interfaced entirely amidst the webserver in order to abstract processes and restrict user parameters
 3.4 Performance
 3.4.1 Capacity
+  Single user with strict hardware limitations: <hardware restrictions here>
 3.4.2 Availability
+  ???
 3.4.3 Latency
+  Message passing between hardware positional updates and web server display should be between 50Hz and 100Hz
 3.5 Maintainability
 3.5.1 Monitoring
+  Backlogs consisting of Network communication between server/client, application development and others as needed should be kept on file
 3.5.2 Maintenance
 3.5.3 Operations
 3.6 System Interface/Integration
@@ -31,7 +69,9 @@ Table of Contents
 3.6.2 System Interfaces
 3.7 Security
 3.7.1 Protection
+  Credentials will be established to give admin access and user account access to the application
 3.7.2 Authorization and Authentication
+  <Credential verification method>
 3.8 Data Management
 3.9 Standards Compliance
 3.10 Portability
