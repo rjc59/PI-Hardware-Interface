@@ -3,9 +3,9 @@ from Stepper import stepper
 
 class Position(object):
 
-    def __init__(self, tilt = 0, roll = 0):
+    def __init__(self, pitch = 0, roll = 0):
         super(Position, self).__init__()
-        self.stepsTilt = tilt
+        self.stepsPitch = pitch
         self.stepsRoll = roll
         
 class Device(object):
@@ -15,41 +15,41 @@ class Device(object):
         super(Device, self).__init__()
         self.position = Position()
         self.rollStepper = Stepper([22, 17, 23]) # Step pin, direction pin, enable pin
-        self.tiltStepper = Stepper([22, 17, 23]) # Step pin, direction pin, enable pin
+        self.pitchStepper = Stepper([22, 17, 23]) # Step pin, direction pin, enable pin
 
-    def isSafeMove(stepsRoll, stepsTilt):
+    def isSafeMove(self, stepsRoll, stepsPitch):
 
         return True # TODO: Make this work correctly.
 
-    def moveBySteps(stepsRoll, stepsTilt):
+    def moveBySteps(self, stepsRoll, stepsPitch):
 
-        if not isSafeMove(stepsRoll, stepsTilt):
+        if not isSafeMove(stepsRoll, stepsPitch):
             raise Exception("Movement is not safe to perform.")
 
         rollDirection = ""
         if stepsRoll > 0: # TODO: Figure out which direction is which.
-            rollDirection = "left"
+            rollDirection = stepper.DIR_LEFT
         else:
-            rollDirection = "right"
+            rollDirection = stepper.DIR_RIGHT
 
-        tiltDirection = ""
-        if stepsTilt > 0: # TODO: Figure out which direction is which.
-            tiltDirection = "left"
+        pitchDirection = ""
+        if stepsPitch > 0: # TODO: Figure out which direction is which.
+            pitchDirection = stepper.DIR_LEFT
         else:
-            tiltDirection = "right"
+            pitchDirection = stepper.DIR_RIGHT
 
         self.rollStepper.step(abs(stepsRoll), rollDirection) #steps, dir, speed, stayOn
-        self.tiltStepper.step(abs(stepsTilt), tiltDirection) #steps, dir, speed, stayOn
+        self.pitchStepper.step(abs(stepsPitch), pitchDirection) #steps, dir, speed, stayOn
 
-    def moveByDegrees(degreesRoll, degreesTilt):
+    def moveByDegrees(self, degreesRoll, degreesPitch):
 
-        moveBySteps(degreesToSteps(degreesRoll), degreesToSteps(degreesTilt))
+        moveBySteps(degreesToSteps(degreesRoll), degreesToSteps(degreesPitch))
 
-    def degreesToSteps(degrees):
+    def degreesToSteps(self, degrees):
 
         return degrees * 100 # TODO: Replace this with the correct multiplier.
 
-    def getPosition():
+    def getPosition(self):
 
         return self.position
 
@@ -68,14 +68,14 @@ def handleConnection(clientsocket, clientAddress, device):
     while not (message == ""):
         
         message = clientsocket.recv(2048) # TODO: Figure out a better number of bytes to receive.
-        commandType, motionRoll, motionTilt = parseMessage(message)
+        commandType, motionRoll, motionPitch = parseMessage(message)
         if commandType == "steps":
-            device.moveBySteps(motionRoll, motionTilt)
+            device.moveBySteps(motionRoll, motionPitch)
         elif commandType == "degrees":
-            device.moveByDegrees(motionRoll, motionTilt)
+            device.moveByDegrees(motionRoll, motionPitch)
         elif commandType == "getSteps":
             pos = device.getPosition()
-            sendMessage(clientsocket, pos.stepsRoll + "," + pos.stepsTilt)
+            sendMessage(clientsocket, pos.stepsRoll + "," + pos.stepsPitch)
         else:
             raise Exception("unknown commandType")
 
@@ -92,3 +92,7 @@ def main():
 if __name__ == '__main__':
 
     main()
+
+# stuff to send
+    # JSON over sockets
+    #
