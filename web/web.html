@@ -5,7 +5,7 @@
   	<title>Project2</title>
 	  <link rel="stylesheet" href="css/main.css">
   </head>
-  <body>
+  <body onload="init()">
 	  <div class="banner">
 			<p>Title</p>
 		</div>
@@ -31,7 +31,7 @@
         </div>
 			</div>
 			<div class="body_container_right_col">
-        <p>display current axiis here</p>
+        <p id="current_display"></p>
 		  </div>
 		</div>
 
@@ -40,6 +40,19 @@
     </footer>
 
     <script>
+      var socket;
+      var x_current;
+      var y_current;
+
+      function init() {
+        //handle initial axii conditions
+        socket = new WebSocket("ws://localhost:9001")
+        x_current = 0;
+        y_current = 0;
+        initial_string = "X: " + x_current + "\tY: " + y_current;
+        document.getElementById("current_display").innerHTML = initial_string;
+      }
+
       function relative_send() {
         var x = document.forms["relative"]["x"].value;
         var y = document.forms["relative"]["y"].value;
@@ -47,6 +60,16 @@
           alert("Invalid Relative Changes");
           return false;
         }
+
+        socket.send(x);
+      }
+
+      socket.onopen = function (event) {
+        //acknowledge its been opened ie/ log update
+      }
+
+      socket.onmessage = function (event) {
+        //handle receiving axii updates
       }
     </script>
     <!--Need to add a POST method for sending form data. can use json?? not sure how to do this-->
