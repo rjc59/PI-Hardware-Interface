@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	  <meta charset="UTF-8">
+  	<title>Project2</title>
+	  <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+	  <div class="banner">
+			<p>Title</p>
+		</div>
+
+		<div class="body_container">
+			<div class="body_container_left_col">
+
+        <div class="body_container_left_col_row_1">
+          <p>Relative</p>
+          <form onsubmit="return relative_send()" method="post" name="relative">
+            X: <input type="text" name="x"><br>
+            Y: <input type="text" name="y"><br>
+            &nbsp&nbsp&nbsp<input type="submit" value="update">
+          </form>
+        </div>
+
+        <div class="body_container_left_col_row_2">
+          <p>Absolute</p>
+        </div>
+
+        <div class="body_container_left_col_row_3">
+          <p>Log?? or a separate container below for a wider container</p>
+        </div>
+			</div>
+			<div class="body_container_right_col">
+        <p>display current axiis here</p>
+		  </div>
+		</div>
+
+		<footer class="footer">
+       <p>CS1980 Capstone <a href="https://cs.pitt.edu/">University of Pittsburgh</a></p>
+    </footer>
+
+    <script>
+      function relative_send() {
+        var x = document.forms["relative"]["x"].value;
+        var y = document.forms["relative"]["y"].value;
+        if(isNaN(x) || isNaN(y)) {
+          alert("Invalid Relative Changes");
+          return false;
+        }
+      }
+    </script>
+    <!--Need to add a POST method for sending form data. can use json?? not sure how to do this-->
+  </body>
+</html>

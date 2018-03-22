@@ -1,0 +1,62 @@
+.banner {
+  background-color: #373737;
+  color: #FFFFFF;
+  font-weight: 575;
+  height: 10vh;
+  width: inherit;
+  overflow: hidden;
+}
+
+.form > input[type=text] {
+  width: 25%;
+}
+
+.body_container {
+  background-color: #C0C0C0;
+  height: 85vh;
+  width: 100vw;
+  font-family: monospace;
+}
+
+.body_container_left_col {
+  /*background-color: #F4D03F;*/
+  float: left;
+  height: inherit;
+  width: 33%;
+  overflow: hidden;
+}
+
+.body_container_left_col_row_1 {
+  /*background-color: #0000FF;*/
+  height: 34%;
+  width: 100%;
+}
+
+.body_container_left_col_row_2 {
+  /*background-color: #00FF00;*/
+  height: 34%;
+  width: 100%;
+}
+
+.body_container_left_col_row_3 {
+  /*background-color: #FF0000;*/
+  height: 33%;
+  width: 100%;
+}
+
+.body_container_right_col {
+  background: url(../images/gyro.png) no-repeat;
+  background-color: #FFFFFF;
+  float: right;
+  height: inherit;
+  width: 66%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.footer, .footer > p > a, .navigation, .navigation > li > a{
+  background-color: #0C2340;
+  color: #B3A639;
+  height: 5vh;
+  overflow: hidden;
+}
