@@ -27,7 +27,7 @@
         </div>
 
         <div class="body_container_left_col_row_3">
-          <p>Log?? or a separate container below for a wider container</p>
+          <button class="log_button" type="button" onclick="get_log()">.log</button>
         </div>
 			</div>
 			<div class="body_container_right_col">
@@ -40,6 +40,10 @@
     </footer>
 
     <script>
+
+    //http://jsfiddle.net/CYMtV/
+    //axii display ^^
+
       var socket;
       var x_current;
       var y_current;
@@ -60,17 +64,30 @@
           alert("Invalid Relative Changes");
           return false;
         }
-
+        //send as a json object 'x' & 'y' tags
         socket.send(x);
       }
 
+      function get_log() {
+        //retreive log from server
+
+      }
+
+      //Socket Methods
       socket.onopen = function (event) {
-        //acknowledge its been opened ie/ log update
+        //acknowledge its been opened
       }
 
       socket.onmessage = function (event) {
         //handle receiving axii updates
+        //receive as a json object 'x' & 'y' tags
+
+        //parse x,y
+        //update current var's
+        //update string display
       }
+
+
     </script>
     <!--Need to add a POST method for sending form data. can use json?? not sure how to do this-->
   </body>
