@@ -63,11 +63,10 @@ def parseMessage(message):
     print("end message")
     contents = json.loads(message)
     return (contents['x'], contents['y'], contents['type'])
-    pass
 
 def sendMessage(clientsocket, message):
 
-    if message is Position:
+    if isinstance(message, Position):
         text = json.dumps({'x': (message.stepsPitch), 'y': (message.stepsRoll), 'type': ('absolute')})
         clientsocket.send(text)
     else:
