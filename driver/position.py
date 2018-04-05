@@ -1,5 +1,8 @@
+#!/usr/bin/python3
+
 import socket
-from Stepper import stepper
+import json
+# from Stepper import stepper
 
 class Position(object):
 
@@ -53,46 +56,53 @@ class Device(object):
 
         return self.position
 
-def parseMessage():
+def parseMessage(message):
 
-    # TODO: Figure out a message format.
+    print("Parsing message ")
+    print(message)
+    print("end message")
+    contents = json.loads(message)
+    return (contents['x'], contents['y'], contents['type'])
     pass
 
 def sendMessage(clientsocket, message):
 
-    clientsocket.send(message)
+    if message is Position:
+        text = json.dumps({'x': (message.stepsPitch), 'y': (message.stepsRoll), 'type': ('absolute')})
+        clientsocket.send(text)
+    else:
+        clientsocket.send(message)
 
 def handleConnection(clientsocket, clientAddress, device):
 
-    message = clientsocket.recv(2048) # TODO: Figure out a better number of bytes to receive.
+    # {"x":15,"y":30,"type":"absolute"}
+    message = bytes.decode(clientsocket.recv(2048))
     while not (message == ""):
         
-        message = clientsocket.recv(2048) # TODO: Figure out a better number of bytes to receive.
-        commandType, motionRoll, motionPitch = parseMessage(message)
-        if commandType == "steps":
-            device.moveBySteps(motionRoll, motionPitch)
-        elif commandType == "degrees":
-            device.moveByDegrees(motionRoll, motionPitch)
-        elif commandType == "getSteps":
-            pos = device.getPosition()
-            sendMessage(clientsocket, pos.stepsRoll + "," + pos.stepsPitch)
-        else:
-            raise Exception("unknown commandType")
+        motionRoll, motionPitch, commandType = parseMessage(message)
+        print("Got message ")
+        print(motionRoll)
+        message = bytes.decode(clientsocket.recv(2048))
+        # if commandType == "steps":
+        #     device.moveBySteps(motionRoll, motionPitch)
+        # elif commandType == "degrees":
+        #     device.moveByDegrees(motionRoll, motionPitch)
+        # elif commandType == "getSteps":
+        #     pos = device.getPosition()
+        #     sendMessage(clientsocket, pos.stepsRoll + "," + pos.stepsPitch)
+        # else:
+        #     raise Exception("unknown commandType")    
 
 def main():
 
-    dev = Device()
+    dev = "" #= Device()
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind("localhost", 1337) # TODO: Decide on a port.
+    sock.bind(("localhost", 1337)) # TODO: Decide on a port.
     sock.listen(1)
     while 1:
-        (clientsocket, address) = serversocket.accept()
+        (clientsocket, address) = sock.accept()
         handleConnection(clientsocket, address, dev)
 
 if __name__ == '__main__':
 
     main()
-
-# stuff to send
-    # JSON over sockets
-    #
