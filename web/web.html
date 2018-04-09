@@ -48,8 +48,9 @@
       var x_current;
       var y_current;
 
+      //Initial Conditions
       function init() {
-        //handle initial axii conditions
+        // handle initial axii conditions
         socket = new WebSocket("ws://localhost:9001")
         x_current = 0;
         y_current = 0;
@@ -57,38 +58,55 @@
         document.getElementById("current_display").innerHTML = initial_string;
       }
 
+      //Send Updates
       function relative_send() {
+        // get xy from Relative form
         var x = document.forms["relative"]["x"].value;
         var y = document.forms["relative"]["y"].value;
+        // error check
         if(isNaN(x) || isNaN(y)) {
           alert("Invalid Relative Changes");
           return false;
         }
-        //send as a json object 'x' & 'y' tags
-        socket.send(x);
+        // structure json object
+        var xy_update = '{ "coordinates" : [' +
+        '{"x":' + x + ', "y":' + y + '}' +
+        ']}';
+        // send object
+        socket.send(xy_update);
       }
 
+      //Send Updates
+      function absolute_send() {
+        // Absolute div tag, parallel the relative div
+
+      }
+
+      //Get Log
       function get_log() {
-        //retreive log from server
+        // retreive log from server
 
       }
 
-      //Socket Methods
+      //--Socket-Methods--
+      //Initial Connection
       socket.onopen = function (event) {
-        //acknowledge its been opened
+        // acknowledge its been opened
+
       }
 
+      //Get Updates
       socket.onmessage = function (event) {
-        //handle receiving axii updates
-        //receive as a json object 'x' & 'y' tags
-
-        //parse x,y
-        //update current var's
-        //update string display
+        // receive updates
+        var xy = JSON.parse(event.data);
+        // parse x,y
+        x_current = xy.coordinates[1].x;
+        y_current = xy.coordinates[1].y;
+        // update string display
+        initial_string = "X: " + x_current + "\tY: " + y_current;
+        document.getElementById("current_display").innerHTML = initial_string;
       }
-
 
     </script>
-    <!--Need to add a POST method for sending form data. can use json?? not sure how to do this-->
   </body>
 </html>
