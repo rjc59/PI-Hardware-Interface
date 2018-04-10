@@ -97,7 +97,8 @@
         // structure json object
         var xy_update = {
           'x':x,
-          'y':y
+          'y':y,
+          'type':'absolute'
         };
         // send object
         socket.send(JSON.stringify(xy_update));
