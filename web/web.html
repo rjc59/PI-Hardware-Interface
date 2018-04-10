@@ -14,8 +14,8 @@
 			<div class="body_container_left_col">
 
         <div class="body_container_left_col_row_1">
-          <p>Relative</p>
-          <form onsubmit="return relative_send()" method="post" name="relative">
+          <p>Absolute</p>
+          <form onsubmit="absolute_send(); return false;" name="relative">
             X: <input type="text" name="x"><br>
             Y: <input type="text" name="y"><br>
             &nbsp&nbsp&nbsp<input type="submit" value="update">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="body_container_left_col_row_2">
-          <p>Absolute</p>
+          <p>Relative</p>
         </div>
 
         <div class="body_container_left_col_row_3">
@@ -56,11 +56,38 @@
         y_current = 0;
         initial_string = "X: " + x_current + "\tY: " + y_current;
         document.getElementById("current_display").innerHTML = initial_string;
+
+        //Socket Methods
+        socket.onopen = function () {
+          //acknowledge its been opened
+        };
+
+        socket.onmessage = function (e) {
+          var xy = JSON.parse(event.data);
+          // parse x,y
+          x_current = xy.coordinates[1].x;
+          y_current = xy.coordinates[1].y;
+          // update string display
+          initial_string = "X: " + x_current + "\tY: " + y_current;
+          document.getElementById("current_display").innerHTML = initial_string;
+          //handle receiving axii updates
+          //receive as a json object 'x' & 'y' tags
+
+          //parse x,y
+          //update current var's
+          //update string display
+        };
+
+        socket.onclose = function() {
+
+        };
+
+        socket.onerror = function(e) {
+          console.log(e)
+        }
       }
 
-      //Send Updates
-      function relative_send() {
-        // get xy from Relative form
+      function absolute_send() {
         var x = document.forms["relative"]["x"].value;
         var y = document.forms["relative"]["y"].value;
         // error check
@@ -88,24 +115,6 @@
 
       }
 
-      //--Socket-Methods--
-      //Initial Connection
-      socket.onopen = function (event) {
-        // acknowledge its been opened
-
-      }
-
-      //Get Updates
-      socket.onmessage = function (event) {
-        // receive updates
-        var xy = JSON.parse(event.data);
-        // parse x,y
-        x_current = xy.coordinates[1].x;
-        y_current = xy.coordinates[1].y;
-        // update string display
-        initial_string = "X: " + x_current + "\tY: " + y_current;
-        document.getElementById("current_display").innerHTML = initial_string;
-      }
 
     </script>
   </body>
