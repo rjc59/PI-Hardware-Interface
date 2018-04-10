@@ -29,12 +29,14 @@
         <div class="body_container_left_col_row_3">
           <button class="log_button" type="button" onclick="get_log()">.log</button>
         </div>
+
 			</div>
 			<div class="body_container_right_col">
         <p id="current_display"></p>
 		  </div>
 		</div>
 
+    <div id="log"></div>
 		<footer class="footer">
        <p>CS1980 Capstone <a href="https://cs.pitt.edu/">University of Pittsburgh</a></p>
     </footer>
@@ -59,23 +61,19 @@
 
         //Socket Methods
         socket.onopen = function () {
+          output("opened");
           //acknowledge its been opened
         };
 
         socket.onmessage = function (e) {
-          var xy = JSON.parse(event.data);
+          var xy = JSON.parse(e.data);
           // parse x,y
+          console.log(e.data)
           x_current = xy.coordinates[1].x;
           y_current = xy.coordinates[1].y;
           // update string display
           initial_string = "X: " + x_current + "\tY: " + y_current;
           document.getElementById("current_display").innerHTML = initial_string;
-          //handle receiving axii updates
-          //receive as a json object 'x' & 'y' tags
-
-          //parse x,y
-          //update current var's
-          //update string display
         };
 
         socket.onclose = function() {
@@ -84,7 +82,8 @@
 
         socket.onerror = function(e) {
           console.log(e)
-        }
+        };
+
       }
 
       function absolute_send() {
@@ -104,7 +103,7 @@
       }
 
       //Send Updates
-      function absolute_send() {
+      function relative_send() {
         // Absolute div tag, parallel the relative div
 
       }
@@ -113,6 +112,13 @@
       function get_log() {
         // retreive log from server
 
+      }
+
+      function output(str) {
+        var log = document.getElementById("log");
+        var escaped = str.replace(/&/, "&amp;").replace(/</, "&lt;").
+          replace(/>/, "&gt;").replace(/"/, "&quot;"); // "
+        log.innerHTML = escaped + "<br>" + log.innerHTML;
       }
 
 
