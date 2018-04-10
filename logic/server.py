@@ -18,7 +18,7 @@ def message_received(client, server, message):
 	#	message = message[:200]+'..'
 	#server.send_message_to_all("Client(%d) said: %s" % (client['id'], message))
 	contents = json.loads(message)
-	print(contents['coordinates'], flush=True)
+	print(contents, flush=True)
 	server.send_message_to_all(message)
 
 PORT=9001

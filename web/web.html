@@ -15,7 +15,7 @@
 
         <div class="body_container_left_col_row_1">
           <p>Absolute</p>
-          <form onsubmit="absolute_send(); return false;" name="relative">
+          <form onsubmit="absolute_send(); return false;" name="absolute">
             X: <input type="text" name="x"><br>
             Y: <input type="text" name="y"><br>
             &nbsp&nbsp&nbsp<input type="submit" value="update">
@@ -68,11 +68,11 @@
         socket.onmessage = function (e) {
           var xy = JSON.parse(e.data);
           // parse x,y
-          console.log(e.data)
-          x_current = xy.coordinates[1].x;
-          y_current = xy.coordinates[1].y;
+          console.log(e.data);
+          var x_ = xy.x;
+          var y_ = xy.y;
           // update string display
-          initial_string = "X: " + x_current + "\tY: " + y_current;
+          initial_string = "X: " + x_ + "\tY: " + y_;
           document.getElementById("current_display").innerHTML = initial_string;
         };
 
@@ -87,19 +87,20 @@
       }
 
       function absolute_send() {
-        var x = document.forms["relative"]["x"].value;
-        var y = document.forms["relative"]["y"].value;
+        var x = document.forms["absolute"]["x"].value;
+        var y = document.forms["absolute"]["y"].value;
         // error check
         if(isNaN(x) || isNaN(y)) {
-          alert("Invalid Relative Changes");
+          alert("Invalid Changes");
           return false;
         }
         // structure json object
-        var xy_update = '{ "coordinates" : [' +
-        '{"x":' + x + ', "y":' + y + '}' +
-        ']}';
+        var xy_update = {
+          'x':x,
+          'y':y
+        };
         // send object
-        socket.send(xy_update);
+        socket.send(JSON.stringify(xy_update));
       }
 
       //Send Updates
