@@ -12,7 +12,8 @@ try:
     haveRPi = True
 except Exception as e:
     pass
-sleepTime = 0.000001
+sleepTimeMotors = 0.000001
+sleepTimeSensors = 1
 
 qRecieve = Queue()
 qSend = Queue()
@@ -86,11 +87,11 @@ class Stepper:
                 #set enable to high (i.e. power is NOT going to the motor)
                 gpio.output(self.enablePin, True)
 
-class Device(object):
+class Motors(object):
 
     def __init__(self):
 
-        super(Device, self).__init__()
+        super(Motors, self).__init__()
         self.destination = (0, 0)
         self.rollStepper = Stepper([22, 17, 23]) # Step pin, direction pin, enable pin
         self.pitchStepper = Stepper([24, 18, 25]) # Step pin, direction pin, enable pin
@@ -135,6 +136,11 @@ class Device(object):
 
         return self.getPosition()[0] == self.destination[0] and self.getPosition()[1] == self.destination[1]
 
+class Sensors(object):
+    """docstring for Sensors"""
+    def __init__(self):
+        super(Sensors, self).__init__()
+
 def parseMessage(message):
 
     print("Parsing message ")
@@ -150,6 +156,16 @@ def sendMessage(clientsocket, message):
         clientsocket.send(text)
     else:
         clientsocket.send(message)
+
+def threadMonitorSensors():
+
+    sensor = Sensors()
+    while 1:
+        # Check sensor readings.
+        # Determine if we should send an update.
+        # Send that update.
+        sleep(sleepTimeSensors)
+        pass
 
 def threadRecieveCommand():
 
@@ -174,7 +190,7 @@ def threadRecieveCommand():
 
 def threadConsumeCommand():
 
-    device = Device()
+    device = Motors()
     while 1:
         # Get a command from the queue, the optional True means this call will block until there is something ready to get.
         message = qRecieve.get(True)
@@ -184,7 +200,7 @@ def threadConsumeCommand():
             # After every step we send an updated position back to the server.
             qSend.put(device.getPosition())
             # Sleep until the motor is ready for another step.
-            sleep(sleepTime)
+            sleep(sleepTimeMotors)
 
 def threadSendPosition():
 
@@ -196,9 +212,10 @@ def threadSendPosition():
 
 def main():
 
-    thread.start_new_thread(threadRecieveCommand, ()) # Start new thread requires a function and a tuple as arguments.
-    thread.start_new_thread(threadConsumeCommand, ())
-    thread.start_new_thread(threadSendPosition, ())
+    thread.start_new_thread(threadMonitorSensors, ()) # Start new thread requires a function and a tuple as arguments.
+    thread.start_new_thread(threadRecieveCommand, ()) # The tuple contains any necessary arguments for the function.
+    thread.start_new_thread(threadConsumeCommand, ()) # I don't need to pass any arguments, so I just pass and empty tuple.
+    thread.start_new_thread(threadSendPosition,   ())
 
     # Spin loop so that the threads can keep running.
     while 1:

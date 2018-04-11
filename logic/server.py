@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from websocket_server import WebsocketServer
 import json
 
