@@ -147,7 +147,10 @@ def parseMessage(message):
     print(message)
     print("end message", flush=True)
     contents = json.loads(message)
-    return (contents['x'], contents['y'], contents['type'])
+    if 'type' in contents:
+        return (contents['x'], contents['y'], contents['type'])
+    else:
+        return (contents['x'], contents['y'])
 
 def sendMessage(clientsocket, message):
 
@@ -166,10 +169,9 @@ def threadMonitorSensors():
         sleep(sleepTimeSensors)
         pass
 
-def threadRecieveCommand():
+def threadRecieveCommand(ws):
 
     # Set up the socket to listen for connections.
-    ws = create_connection("ws://localhost:9001/")
     while 1:
 
         # Do everything related to that connection for as long as it's open.
@@ -197,20 +199,22 @@ def threadConsumeCommand():
             # Sleep until the motor is ready for another step.
             sleep(sleepTimeMotors)
 
-def threadSendPosition():
+def threadSendPosition(ws):
 
     # TODO: Open a connection back to the logic engine and send the message
     while 1:
         message = qSend.get(True)
         print("sending message " + str(message), flush=True)
-        ws.send(message)
+        ws.send(json.dumps({"x": message[0], "y": message[1]}))
 
 def main():
 
+    ws = create_connection("ws://localhost:9001/")
+
     thread.start_new_thread(threadMonitorSensors, ()) # Start new thread requires a function and a tuple as arguments.
-    thread.start_new_thread(threadRecieveCommand, ()) # The tuple contains any necessary arguments for the function.
+    thread.start_new_thread(threadRecieveCommand, (ws,)) # The tuple contains any necessary arguments for the function.
     thread.start_new_thread(threadConsumeCommand, ()) # I don't need to pass any arguments, so I just pass and empty tuple.
-    thread.start_new_thread(threadSendPosition,   ())
+    thread.start_new_thread(threadSendPosition,   (ws,))
 
     # Spin loop so that the threads can keep running.
     while 1:
