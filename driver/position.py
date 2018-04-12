@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import socket
+from websocket import create_connection
 import json
 import _thread as thread # The module is officially named '_thread' in python3 for backwards compatibility reasons.
 from queue import Queue # Thread safe, blocking queue
@@ -22,7 +22,7 @@ class Stepper:
     DIR_LEFT = "left"
     DIR_RIGHT = "right"
     DIR_NONE = "none"
-    # instantiate stepper 
+    # instantiate stepper
     # pins = [stepPin, directionPin, enablePin]
     def __init__(self, pins):
         #setup pins
@@ -32,29 +32,29 @@ class Stepper:
         self.enablePin = self.pins[2]
         self.stepTime = 0.000001
         self.position = 0
-        
+
         if haveRPi:
-            print("haveRPi init")
+            print("haveRPi init", flush=True)
             #use the broadcom layout for the gpio
             gpio.setmode(gpio.BCM)
-            
+
             #set gpio pins
             gpio.setup(self.stepPin, gpio.OUT)
             gpio.setup(self.directionPin, gpio.OUT)
             gpio.setup(self.enablePin, gpio.OUT)
-            
+
             #set enable to high (i.e. power is NOT going to the motor)
             gpio.output(self.enablePin, True)
-        
-        print("Stepper initialized (step=" + str(self.stepPin) + ", direction=" + str(self.directionPin) + ", enable=" + str(self.enablePin) + ")")
-    
+
+        print("Stepper initialized (step=" + str(self.stepPin) + ", direction=" + str(self.directionPin) + ", enable=" + str(self.enablePin) + ")", flush=True)
+
     # clears GPIO settings
     def cleanGPIO(self):
 
         if haveRPi:
-            print("haveRPi cleanup")
+            print("haveRPi cleanup", flush=True)
             gpio.cleanup()
-    
+
     # step the motor
     # dir = direction stepper will move
     # stayOn = defines whether or not stepper should stay "on" or not. If stepper will need to receive a new step command immediately, this should be set to "True." Otherwise, it should remain at "False."
@@ -69,7 +69,7 @@ class Stepper:
             turnLeft = True
             self.position -= 1
         else:
-            print("STEPPER ERROR: invalid direction supplied")
+            print("STEPPER ERROR: invalid direction supplied", flush=True)
             return False
 
         if haveRPi:
@@ -120,7 +120,7 @@ class Device(object):
             self.pitchStepper.step(Stepper.DIR_LEFT)
         elif stepsPitch < 0:
             self.pitchStepper.step(Stepper.DIR_RIGHT)
-        else: 
+        else:
             pass
 
     def startMove(self, position):
@@ -137,16 +137,15 @@ class Device(object):
 
 def parseMessage(message):
 
-    print("Parsing message ")
+    print("Parsing message ", flush=True)
     print(message)
-    print("end message")
+    print("end message", flush=True)
     contents = json.loads(message)
     return (contents['x'], contents['y'], contents['type'])
 
 def sendMessage(clientsocket, message):
 
     if isinstance(message, Position):
-        text = json.dumps({'x': message.stepsPitch, 'y': message.stepsRoll, 'type': 'absolute'})
         clientsocket.send(text)
     else:
         clientsocket.send(message)
@@ -154,19 +153,15 @@ def sendMessage(clientsocket, message):
 def threadRecieveCommand():
 
     # Set up the socket to listen for connections.
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(("localhost", 1337)) # TODO: Decide on a port.
-    sock.listen(1)
+    ws = create_connection("ws://localhost:9001/")
     while 1:
-        # Receive a connection
-        (recieveSocket, address) = sock.accept()
 
         # Do everything related to that connection for as long as it's open.
         message = "not empty"
         while not (message == ""):
             # Get the message as a string.
-            message = bytes.decode(recieveSocket.recv(2048)).strip()
-            print("got message " + message)
+            message = ws.recv()
+            print("got message " + message, flush=True)
             position = parseMessage(message)
 
             # Put the parsed message into a queue to be consumed by another thread.
@@ -191,8 +186,8 @@ def threadSendPosition():
     # TODO: Open a connection back to the logic engine and send the message
     while 1:
         message = qSend.get(True)
-        print("sending message " + str(message))
-        # sendMessage(sendSocket, message)
+        print("sending message " + str(message), flush=True)
+        ws.send(message)
 
 def main():
 

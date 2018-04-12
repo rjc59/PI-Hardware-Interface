@@ -4,7 +4,8 @@ import json
 # Called for every client connecting (after handshake)
 def new_client(client, server):
 	print("New client connected and was given id %d" % client['id'], flush=True)
-	#server.send_message_to_all("Hey all, a new client has joined us")
+	message = json.dumps({'x': 15, 'y': 30, 'type': 'absolute'})
+	server.send_message_to_all(message)
 
 
 # Called for every client disconnecting
