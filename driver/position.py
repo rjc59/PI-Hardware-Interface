@@ -74,7 +74,7 @@ class Stepper:
             return False
 
         if haveRPi:
-            print("haveRPi step")
+            print("haveRPi step", flush=True)
             #set enable to low (i.e. power IS going to the motor)
             gpio.output(self.enablePin, False)
             gpio.output(self.directionPin, turnLeft)
@@ -196,7 +196,7 @@ def threadConsumeCommand():
             device.step()
             # After every step we send an updated position back to the server.
             qSend.put(device.getPosition())
-            # Sleep until the motor is ready for another step.
+            # Sleep until the motor is ready for another step
             sleep(sleepTimeMotors)
 
 def threadSendPosition(ws):

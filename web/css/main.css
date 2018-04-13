@@ -28,19 +28,25 @@
 
 .body_container_left_col_row_1 {
   /*background-color: #0000FF;*/
-  height: 34%;
+  height: 25%;
   width: 100%;
 }
 
 .body_container_left_col_row_2 {
   /*background-color: #00FF00;*/
-  height: 34%;
+  height: 25%;
   width: 100%;
 }
 
 .body_container_left_col_row_3 {
   /*background-color: #FF0000;*/
-  height: 33%;
+  height: 25%;
+  width: 100%;
+}
+
+.body_container_left_col_row_4 {
+  /*background-color: #FF0000;*/
+  height: 25%;
   width: 100%;
 }
 

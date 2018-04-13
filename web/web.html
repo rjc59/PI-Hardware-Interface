@@ -30,13 +30,16 @@
           <button class="log_button" type="button" onclick="get_log()">.log</button>
         </div>
 
+        <div class="body_container_left_col_row_4">
+          <div id="log" style="overflow:auto;"></div>
+        </div>
+
 			</div>
 			<div class="body_container_right_col">
         <p id="current_display"></p>
 		  </div>
 		</div>
 
-    <div id="log"></div>
 		<footer class="footer">
        <p>CS1980 Capstone <a href="https://cs.pitt.edu/">University of Pittsburgh</a></p>
     </footer>
@@ -61,14 +64,13 @@
 
         //Socket Methods
         socket.onopen = function () {
-          output("opened");
+          output("socket opened");
           //acknowledge its been opened
         };
 
         socket.onmessage = function (e) {
           var xy = JSON.parse(e.data);
           // parse x,y
-          console.log(e.data);
           var x_ = xy.x;
           var y_ = xy.y;
           // update string display
@@ -77,11 +79,11 @@
         };
 
         socket.onclose = function() {
-
+          output("socket closed");
         };
 
         socket.onerror = function(e) {
-          console.log(e)
+          console.log(e);
         };
 
       }
@@ -101,6 +103,7 @@
           'type':'absolute'
         };
         // send object
+        output("sending data x:" + x + " y:" + y)
         socket.send(JSON.stringify(xy_update));
       }
 
@@ -113,14 +116,15 @@
       //Get Log
       function get_log() {
         // retreive log from server
-
+        var win = window.open('../logic/log.txt', '_blank');
+        win.focus();
       }
 
       function output(str) {
-        var log = document.getElementById("log");
+        var log = document.getElementsByClassName("body_container_left_col_row_4");
         var escaped = str.replace(/&/, "&amp;").replace(/</, "&lt;").
           replace(/>/, "&gt;").replace(/"/, "&quot;"); // "
-        log.innerHTML = escaped + "<br>" + log.innerHTML;
+        log[0].innerHTML = escaped + "<br>" + log[0].innerHTML;
       }
 
 
