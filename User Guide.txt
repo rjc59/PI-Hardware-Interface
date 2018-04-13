@@ -1,0 +1,25 @@
+Requirements: Python3
+
+Installation (on windows):
+1. Setup a python virutal environment with:
+    python -m venv venv
+2. cd to the git repo containing this project
+3. cd to the /logic folder and start the server with:
+    python server.py
+4. Start the web client by opening web/Web.html
+5. In a seperate terminal from the one running the server,
+   cd to the new venv/Scripts/ directory you created before
+6. To start a virtual environment, run:
+    source activate
+7. To install the websockets-client dependency, run:
+    python -m pip install websocket-client
+8. To run the driver in this virtual env, cd to the /driver
+   folder in the repo and run python position.py
+9. The server should show two clients connected: the web page
+   as client 1 and the driver and client 2
+
+* to exit the virutal env when finished running the driver, type:
+    source deactivate
+
+Usage:
+Enter coordinates in the form on the web page and submit them with the update button
